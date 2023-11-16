@@ -14,4 +14,23 @@ export class UsersService {
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseApiUrl + '/api/User');
   }
+
+  addUser(addUserRequest: User): Observable<User> {
+    return this.http.post<User>(this.baseApiUrl + '/api/User', addUserRequest);
+  }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(this.baseApiUrl + '/api/User/' + id);
+  }
+
+  updateUser(id: number, updateUserRequest: User) {
+    return this.http.put(
+      this.baseApiUrl + '/api/User/' + id,
+      updateUserRequest
+    );
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete(this.baseApiUrl + '/api/User/' + id);
+  }
 }

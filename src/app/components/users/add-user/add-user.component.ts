@@ -1,15 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  styleUrls: ['./add-user.component.css'],
 })
 export class AddUserComponent implements OnInit {
+  addUserRequest: User = {
+    id: 0,
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
+  };
+  constructor(private userService: UsersService, private router: Router) {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  addUser() {
+    this.userService.addUser(this.addUserRequest).subscribe({
+      next: (user) => {
+        this.router.navigate(['users']);
+      },
+      error: (response) => {
+        console.log(response);
+      },
+    });
   }
-
 }
